@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.louzx.multidatasource.autoconfig.MultiDataSourceAutoConfig,\
+  com.louzx.multidatasource.autoconfig.MultiMybatisAutoConfig
