@@ -54,7 +54,14 @@ public class ConnectionImpl implements Connection {
         } else {
             rollback();
         }
-        this.connection.close();
+    }
+
+    public void close(boolean close){
+        try {
+            this.connection.close();
+        } catch (SQLException ignore) {
+
+        }
     }
 
     @Override

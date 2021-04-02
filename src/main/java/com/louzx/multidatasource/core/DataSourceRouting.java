@@ -36,6 +36,14 @@ public class DataSourceRouting extends AbstractRoutingDataSource {
         localDataSourceName.remove();
     }
 
+    public void close() {
+        Map<String, ConnectionImpl> connectionMap = connectionThreadLocal.get();
+        if (null != connectionMap) {
+            connectionMap.forEach((k, v)-> v.close(true));
+        }
+        this.connectionThreadLocal.remove();
+    }
+
     public DataSource dateSource(String value) {
         return dataSourceMap.get(value);
     }
