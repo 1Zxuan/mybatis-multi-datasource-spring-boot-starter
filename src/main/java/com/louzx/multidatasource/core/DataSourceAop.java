@@ -70,7 +70,6 @@ public class DataSourceAop {
 
     @After("interfaceDataSourcePointcut() || annotationDataSourcePointcut()")
     public void after() {
-        dataSourceRouting.close();
         dataSourceRouting.remove();
     }
 

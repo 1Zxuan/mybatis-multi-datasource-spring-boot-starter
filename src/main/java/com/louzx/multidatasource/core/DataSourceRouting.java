@@ -36,7 +36,7 @@ public class DataSourceRouting extends AbstractRoutingDataSource {
         localDataSourceName.remove();
     }
 
-    public void close() {
+    public void connectionThreadLocalClear() {
         Map<String, ConnectionImpl> connectionMap = connectionThreadLocal.get();
         if (null != connectionMap) {
             connectionMap.forEach((k, v)-> v.close(true));
@@ -64,7 +64,7 @@ public class DataSourceRouting extends AbstractRoutingDataSource {
                 entry.getValue().commit(commit);
             }
         }
-        this.connectionThreadLocal.remove();
+        connectionThreadLocalClear();
     }
 
     @Override
