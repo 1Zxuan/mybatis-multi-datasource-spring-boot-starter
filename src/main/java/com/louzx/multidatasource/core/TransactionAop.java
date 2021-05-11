@@ -26,14 +26,15 @@ public class TransactionAop {
     }
 
     @Around("annotationTransactionPointcut()")
-    public void around(ProceedingJoinPoint joinPoint) throws Throwable {
+    public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         MultiTransaction annotation = signature.getMethod().getAnnotation(MultiTransaction.class);
         if (null != annotation && annotation.values().length > 0) {
             open(annotation.values(), annotation.transactionType());
         }
-        joinPoint.proceed();
+        Object proceed = joinPoint.proceed();
         dataSourceRouting.commit(true);
+        return proceed;
     }
 
     @AfterThrowing("annotationTransactionPointcut()")
